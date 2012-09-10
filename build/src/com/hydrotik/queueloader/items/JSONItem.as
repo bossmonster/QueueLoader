@@ -25,6 +25,10 @@
 
 
 package com.hydrotik.queueloader.items {
+	import com.adobe.serialization.json.JSON;
+	import com.hydrotik.queueloader.AbstractItem;
+	import com.hydrotik.queueloader.ILoadable;
+	
 	import flash.events.Event;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
@@ -32,12 +36,6 @@ package com.hydrotik.queueloader.items {
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.system.LoaderContext;
-	
-	import com.hydrotik.queueloader.AbstractItem;
-	import com.hydrotik.queueloader.ILoadable;
-	
-	// Or use the adobe JSON and change line 103
-	import com.serialization.json.JSON;
 
 	/**
 	 * @author Donovan Adams | Hydrotik | http://blog.hydrotik.com
@@ -100,7 +98,8 @@ package com.hydrotik.queueloader.items {
 		/******* PROTECTED ********/
 		protected override function preCompleteProcess(event:Event):void {
 			var loader:URLLoader = URLLoader(event.target);
-			_content = JSON.deserialize(loader.data);
+			
+			_content = com.adobe.serialization.json.JSON.decode(loader.data);
 			_completeFunction(event);
         }
         
